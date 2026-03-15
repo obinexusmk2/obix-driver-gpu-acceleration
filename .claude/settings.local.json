@@ -4,7 +4,9 @@
       "Bash(for dir:*)",
       "Bash(do echo:*)",
       "Read(//c/Users/OBINexus/Projects/obix/obix-sdk/obix-sdk/packages/drivers/gpu-acceleration/$dir/**)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(npx tsc:*)",
+      "Bash(npx vitest:*)"
     ]
   }
 }

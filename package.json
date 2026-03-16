@@ -1,6 +1,6 @@
 {
   "name": "@obinexusltd/obix-driver-gpu-acceleration",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OBIX GPU Acceleration Driver - WebGL/WebGPU canvas rendering and shader management",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

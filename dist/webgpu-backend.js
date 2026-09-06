@@ -1,9 +1,4 @@
-/**
- * WebGPU Backend Support
- * Experimental WebGPU rendering backend with device/adapter management
- */
 export async function createWebGPUBackend(config) {
-    // Feature detection
     const nav = navigator;
     const gpu = nav.gpu;
     if (!gpu) {
@@ -21,7 +16,6 @@ export async function createWebGPUBackend(config) {
         if (!adapter)
             return null;
         device = await adapter.requestDevice();
-        // Handle device loss
         device.lost.then((info) => {
             lost = true;
             console.warn(`WebGPU device lost: ${info.message} (reason: ${info.reason})`);
@@ -29,7 +23,6 @@ export async function createWebGPUBackend(config) {
                 handler();
             }
         });
-        // Configure canvas context
         gpuContext = config.canvas.getContext('webgpu');
         if (gpuContext && device) {
             const format = nav.gpu?.getPreferredCanvasFormat?.() ?? 'bgra8unorm';
@@ -51,7 +44,7 @@ export async function createWebGPUBackend(config) {
             return lost;
         },
         get gl() {
-            return null; // WebGPU doesn't use WebGL context
+            return null;
         },
         onContextLost(handler) {
             lossHandlers.push(handler);
@@ -60,8 +53,6 @@ export async function createWebGPUBackend(config) {
             restoreHandlers.push(handler);
         },
         async restore() {
-            // WebGPU device loss is typically unrecoverable
-            // The application should re-initialize
             return false;
         },
         destroy() {

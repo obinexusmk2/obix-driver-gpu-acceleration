@@ -184,6 +184,25 @@ npm test
 
 ---
 
+## Documentation
+
+In-depth guides live in [`docs/`](docs/):
+
+| # | Guide |
+|---|-------|
+| 01 | [Overview](docs/01-overview.md) |
+| 02 | [Installation and Setup](docs/02-installation-and-setup.md) |
+| 03 | [Driver Lifecycle and Configuration](docs/03-driver-lifecycle.md) |
+| 04 | [Backends and Context Loss](docs/04-backends-and-context-loss.md) |
+| 05 | [Shaders](docs/05-shaders.md) |
+| 06 | [Buffers](docs/06-buffers.md) |
+| 07 | [Textures and Framebuffers](docs/07-textures-and-framebuffers.md) |
+| 08 | [Render Queue and Drawing](docs/08-render-queue-and-drawing.md) |
+| 09 | [Compute Pipeline](docs/09-compute-pipeline.md) |
+| 10 | [Resources and Profiling](docs/10-resources-and-profiling.md) |
+
+---
+
 ## License
 
 MIT — Copyright (c) OBINexus (okpalan@protonmail.com)

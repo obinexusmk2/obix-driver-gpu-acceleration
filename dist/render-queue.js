@@ -1,7 +1,3 @@
-/**
- * Render Queue & Batch System
- * Command buffer system to batch draw calls and minimize state changes
- */
 export function createRenderQueue(backend, shaderCompiler, bufferManager) {
     const queue = [];
     let drawCallCount = 0;
@@ -13,7 +9,6 @@ export function createRenderQueue(backend, shaderCompiler, bufferManager) {
             const location = compiled.uniformLocations.get(name) ?? gl.getUniformLocation(compiled.glProgram, name);
             if (!location)
                 continue;
-            // Cache the location for future use
             compiled.uniformLocations.set(name, location);
             if (typeof value === 'number') {
                 gl.uniform1f(location, value);
@@ -49,12 +44,10 @@ export function createRenderQueue(backend, shaderCompiler, bufferManager) {
             const gl = backend.gl;
             if (!gl)
                 return;
-            // Sort by sort key to minimize state changes (shader switches)
             queue.sort((a, b) => a.sortKey - b.sortKey);
             let currentShader = '';
             drawCallCount = 0;
             for (const cmd of queue) {
-                // Only switch shader when needed
                 if (cmd.shader !== currentShader) {
                     const compiled = shaderCompiler.getProgram(cmd.shader);
                     if (compiled?.glProgram) {
@@ -62,14 +55,11 @@ export function createRenderQueue(backend, shaderCompiler, bufferManager) {
                         currentShader = cmd.shader;
                     }
                     else {
-                        continue; // Skip commands with invalid shaders
+                        continue;
                     }
                 }
-                // Bind vertex buffer
                 bufferManager.bind(cmd.vertexBuffer);
-                // Set uniforms
                 setUniforms(gl, cmd.shader, cmd.uniforms);
-                // Draw
                 if (cmd.indexBuffer) {
                     bufferManager.bind(cmd.indexBuffer);
                     gl.drawElements(gl.TRIANGLES, cmd.indexCount, gl.UNSIGNED_SHORT, 0);

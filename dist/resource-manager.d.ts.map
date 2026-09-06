@@ -1,1 +1,1 @@
-{"version":3,"file":"resource-manager.d.ts","sourceRoot":"","sources":["../src/resource-manager.ts"],"names":[],"mappings":"AAAA;;GAEG;AAEH,OAAO,KAAK,EAAqB,kBAAkB,EAAE,MAAM,YAAY,CAAC;AASxE,wBAAgB,qBAAqB,IAAI,kBAAkB,CAqG1D"}
+{"version":3,"file":"resource-manager.d.ts","sourceRoot":"","sources":["../src/resource-manager.ts"],"names":[],"mappings":"AAIA,OAAO,KAAK,EAAqB,kBAAkB,EAAE,MAAM,YAAY,CAAC;AASxE,wBAAgB,qBAAqB,IAAI,kBAAkB,CAqG1D"}

@@ -1,1 +1,1 @@
-{"version":3,"file":"texture-manager.d.ts","sourceRoot":"","sources":["../src/texture-manager.ts"],"names":[],"mappings":"AAAA;;;GAGG;AAEH,OAAO,KAAK,EACV,cAAc,EAGd,kBAAkB,EAIlB,iBAAiB,EAClB,MAAM,YAAY,CAAC;AAwBpB,wBAAgB,oBAAoB,CAClC,OAAO,EAAE,cAAc,EACvB,eAAe,EAAE,kBAAkB,GAClC,iBAAiB,CAwLnB"}
+{"version":3,"file":"texture-manager.d.ts","sourceRoot":"","sources":["../src/texture-manager.ts"],"names":[],"mappings":"AAKA,OAAO,KAAK,EACV,cAAc,EAGd,kBAAkB,EAIlB,iBAAiB,EAClB,MAAM,YAAY,CAAC;AAwBpB,wBAAgB,oBAAoB,CAClC,OAAO,EAAE,cAAc,EACvB,eAAe,EAAE,kBAAkB,GAClC,iBAAiB,CAwLnB"}

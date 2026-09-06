@@ -1,6 +1,3 @@
-/**
- * Resource Manager - GPU resource lifecycle, reference counting, and garbage collection
- */
 export function createResourceManager() {
     let currentId = 0;
     const resources = new Map();
@@ -44,7 +41,6 @@ export function createResourceManager() {
                             leakHandler(tracked.handle);
                         }
                     }
-                    // Destroy resources with zero refs
                     tracked.destructor();
                     freedBytes += tracked.handle.byteSize;
                     toDelete.push(id);

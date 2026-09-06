@@ -1,7 +1,3 @@
-/**
- * WebGL 2.0 Context Manager
- * Initialize and manage WebGL 2.0 contexts with fallback and context loss recovery
- */
 export function createWebGLContext(config) {
     let gl = null;
     let lost = false;
@@ -33,7 +29,6 @@ export function createWebGLContext(config) {
         };
         const context = config.canvas.getContext('webgl2', attributes);
         if (context) {
-            // Set default state
             context.viewport(0, 0, config.canvas.width, config.canvas.height);
             context.enable(context.DEPTH_TEST);
             context.enable(context.BLEND);
@@ -42,7 +37,6 @@ export function createWebGLContext(config) {
         }
         return context;
     }
-    // Initialize
     gl = initContext();
     if (gl) {
         config.canvas.addEventListener('webglcontextlost', onLost);
@@ -67,11 +61,9 @@ export function createWebGLContext(config) {
         async restore() {
             if (!lost)
                 return true;
-            // Try using WEBGL_lose_context extension to force restore
             const ext = gl?.getExtension('WEBGL_lose_context');
             if (ext) {
                 ext.restoreContext();
-                // The actual restore happens asynchronously via the event listener
                 return new Promise((resolve) => {
                     const timeout = setTimeout(() => resolve(false), 3000);
                     const tempHandler = () => {
@@ -81,7 +73,6 @@ export function createWebGLContext(config) {
                     restoreHandlers.push(tempHandler);
                 });
             }
-            // Attempt full re-creation
             gl = initContext();
             if (gl) {
                 lost = false;
@@ -95,7 +86,6 @@ export function createWebGLContext(config) {
         destroy() {
             config.canvas.removeEventListener('webglcontextlost', onLost);
             config.canvas.removeEventListener('webglcontextrestored', onRestored);
-            // Force context loss to free resources
             const ext = gl?.getExtension('WEBGL_lose_context');
             if (ext) {
                 ext.loseContext();

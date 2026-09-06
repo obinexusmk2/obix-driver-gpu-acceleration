@@ -1,7 +1,3 @@
-/**
- * GPU Acceleration Driver
- * Cross-platform WebGL/WebGPU canvas rendering and shader management
- */
 export type { BackendContext, BackendType, BufferDescriptor, BufferHandle, BufferManagerAPI, BufferUsage, CompiledShader, ComputePipelineAPI, ContextLossStrategy, Disposable, FrameMetrics, FramebufferDescriptor, FramebufferHandle, GPUAccelerationDriverAPI, GPUAccelerationDriverConfig, GPUResourceHandle, PowerPreference, ProfilerAPI, RenderCommand, RenderQueueAPI, ResourceManagerAPI, ResourceType, ShaderCompilerAPI, ShaderError, ShaderProgram, TextureDescriptor, TextureFormat, TextureHandle, TextureManagerAPI, } from './types.js';
 import type { GPUAccelerationDriverAPI, GPUAccelerationDriverConfig } from './types.js';
 export { createResourceManager } from './resource-manager.js';

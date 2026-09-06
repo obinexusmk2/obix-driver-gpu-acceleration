@@ -1,13 +1,9 @@
-/**
- * Vertex & Index Buffer Management
- * GPU buffer creation, data upload, and memory management
- */
 function getGLBufferTarget(gl, usage) {
     switch (usage) {
         case 'vertex': return gl.ARRAY_BUFFER;
         case 'index': return gl.ELEMENT_ARRAY_BUFFER;
         case 'uniform': return gl.UNIFORM_BUFFER;
-        case 'storage': return gl.ARRAY_BUFFER; // WebGL2 uses SSBO-like patterns via UBO
+        case 'storage': return gl.ARRAY_BUFFER;
     }
 }
 function getGLUsageHint(gl, dynamic) {
@@ -40,7 +36,6 @@ export function createBufferManager(backend, resourceManager) {
                 glBuffer,
             };
             bufferTargets.set(id, descriptor.usage);
-            // Keep CPU-side copy for context loss recovery
             bufferDataCopies.set(id, descriptor.data);
             totalMemory += byteSize;
             resourceManager.register(handle, () => {
@@ -64,7 +59,6 @@ export function createBufferManager(backend, resourceManager) {
             gl.bindBuffer(target, handle.glBuffer);
             gl.bufferSubData(target, offset, data);
             gl.bindBuffer(target, null);
-            // Update CPU-side copy
             bufferDataCopies.set(handle.id, data);
         },
         bind(handle) {

@@ -1,7 +1,3 @@
-/**
- * Texture & Framebuffer Objects
- * Texture loading, mipmapping, and framebuffer management
- */
 function getGLFormat(gl, format) {
     switch (format) {
         case 'rgba8':
@@ -19,7 +15,6 @@ function getGLFormat(gl, format) {
 export function createTextureManager(backend, resourceManager) {
     let maxTextureSize = 0;
     let totalMemory = 0;
-    // Query max texture size on creation
     const gl = backend.gl;
     if (gl) {
         maxTextureSize = gl.getParameter(gl.MAX_TEXTURE_SIZE);
@@ -30,7 +25,6 @@ export function createTextureManager(backend, resourceManager) {
             const id = resourceManager.nextId();
             const format = descriptor.format ?? 'rgba8';
             const { width, height } = descriptor;
-            // Validate texture size
             if (maxTextureSize > 0 && (width > maxTextureSize || height > maxTextureSize)) {
                 throw new Error(`Texture size ${width}x${height} exceeds maximum ${maxTextureSize}x${maxTextureSize}`);
             }
@@ -42,12 +36,10 @@ export function createTextureManager(backend, resourceManager) {
                 if (tex) {
                     glTexture = tex;
                     gl.bindTexture(gl.TEXTURE_2D, tex);
-                    // Set default filtering
                     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, descriptor.mipmaps ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR);
                     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
                     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
                     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-                    // Upload data
                     const glFmt = getGLFormat(gl, format);
                     if (descriptor.data) {
                         gl.texImage2D(gl.TEXTURE_2D, 0, glFmt.internalFormat, width, height, 0, glFmt.format, glFmt.type, descriptor.data);
@@ -83,24 +75,21 @@ export function createTextureManager(backend, resourceManager) {
             const id = resourceManager.nextId();
             const { width, height } = descriptor;
             let glFramebuffer;
-            const byteSize = 0; // FBO itself is minimal; textures are tracked separately
+            const byteSize = 0;
             if (gl) {
                 const fbo = gl.createFramebuffer();
                 if (fbo) {
                     glFramebuffer = fbo;
                     gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-                    // Attach color textures
                     for (let i = 0; i < descriptor.colorAttachments.length; i++) {
                         const tex = descriptor.colorAttachments[i];
                         if (tex.glTexture) {
                             gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0 + i, gl.TEXTURE_2D, tex.glTexture, 0);
                         }
                     }
-                    // Attach depth
                     if (descriptor.depthAttachment?.glTexture) {
                         gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, descriptor.depthAttachment.glTexture, 0);
                     }
-                    // Check completeness
                     const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
                     if (status !== gl.FRAMEBUFFER_COMPLETE) {
                         console.warn(`Framebuffer incomplete: status ${status}`);

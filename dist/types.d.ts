@@ -1,7 +1,3 @@
-/**
- * GPU Acceleration Driver - Shared Types
- * WebGL/WebGPU canvas rendering and shader management
- */
 export type BackendType = 'webgl2' | 'webgpu' | 'none';
 export type PowerPreference = 'default' | 'high-performance' | 'low-power';
 export type ContextLossStrategy = 'restore' | 'recreate' | 'notify';

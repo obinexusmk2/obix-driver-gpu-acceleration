@@ -1,9 +1,4 @@
-/**
- * Shader Compilation & Caching System
- * Compile GLSL/WGSL shaders, cache compiled programs, error diagnostics
- */
 function hashSource(vertex, fragment) {
-    // Simple hash for cache deduplication
     let hash = 0;
     const combined = vertex + '\0' + fragment;
     for (let i = 0; i < combined.length; i++) {
@@ -20,7 +15,6 @@ function parseShaderLog(log, type) {
     for (const line of lines) {
         if (!line.trim())
             continue;
-        // Common format: ERROR: 0:lineNum: message
         const match = line.match(/ERROR:\s*\d+:(\d+):\s*(.*)/i);
         if (match) {
             errors.push({
@@ -36,7 +30,6 @@ function parseShaderLog(log, type) {
     return errors;
 }
 function ensurePrecision(source) {
-    // Insert precision qualifier for fragment shaders if missing
     if (!/precision\s+(lowp|mediump|highp)\s+float/i.test(source)) {
         return 'precision highp float;\n' + source;
     }
@@ -58,7 +51,6 @@ export function createShaderCompiler(backend) {
             };
         }
         const errors = [];
-        // Compile vertex shader
         const vs = gl.createShader(gl.VERTEX_SHADER);
         if (!vs) {
             errors.push({ type: 'vertex', message: 'Failed to create vertex shader' });
@@ -73,7 +65,6 @@ export function createShaderCompiler(backend) {
             allErrors.push(...errors);
             return { name, program, uniformLocations: new Map(), valid: false, errors };
         }
-        // Compile fragment shader with precision injection
         const fs = gl.createShader(gl.FRAGMENT_SHADER);
         if (!fs) {
             gl.deleteShader(vs);
@@ -90,7 +81,6 @@ export function createShaderCompiler(backend) {
             allErrors.push(...errors);
             return { name, program, uniformLocations: new Map(), valid: false, errors };
         }
-        // Link program
         const glProgram = gl.createProgram();
         if (!glProgram) {
             gl.deleteShader(vs);
@@ -101,7 +91,6 @@ export function createShaderCompiler(backend) {
         gl.attachShader(glProgram, vs);
         gl.attachShader(glProgram, fs);
         gl.linkProgram(glProgram);
-        // Shaders can be deleted after linking
         gl.deleteShader(vs);
         gl.deleteShader(fs);
         if (!gl.getProgramParameter(glProgram, gl.LINK_STATUS)) {
@@ -111,7 +100,6 @@ export function createShaderCompiler(backend) {
             allErrors.push(...errors);
             return { name, program, uniformLocations: new Map(), valid: false, errors };
         }
-        // Extract uniform locations
         const uniformLocations = new Map();
         if (program.uniforms) {
             for (const uniformName of Object.keys(program.uniforms)) {
@@ -138,7 +126,6 @@ export function createShaderCompiler(backend) {
             if (compiled.valid) {
                 cache.set(cacheKey, compiled);
             }
-            // Also store by name for lookup
             cache.set(name, compiled);
             return compiled;
         },

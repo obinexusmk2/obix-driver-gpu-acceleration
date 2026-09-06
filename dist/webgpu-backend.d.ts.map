@@ -1,1 +1,1 @@
-{"version":3,"file":"webgpu-backend.d.ts","sourceRoot":"","sources":["../src/webgpu-backend.ts"],"names":[],"mappings":"AAAA;;;GAGG;AAEH,OAAO,KAAK,EAAE,cAAc,EAAE,2BAA2B,EAAE,MAAM,YAAY,CAAC;AAuB9E,wBAAsB,mBAAmB,CACvC,MAAM,EAAE,2BAA2B,GAClC,OAAO,CAAC,cAAc,GAAG,IAAI,CAAC,CA4EhC"}
+{"version":3,"file":"webgpu-backend.d.ts","sourceRoot":"","sources":["../src/webgpu-backend.ts"],"names":[],"mappings":"AAKA,OAAO,KAAK,EAAE,cAAc,EAAE,2BAA2B,EAAE,MAAM,YAAY,CAAC;AAuB9E,wBAAsB,mBAAmB,CACvC,MAAM,EAAE,2BAA2B,GAClC,OAAO,CAAC,cAAc,GAAG,IAAI,CAAC,CA4EhC"}
